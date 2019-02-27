@@ -1,3 +1,4 @@
+//evaporation term
 
 fvScalarMatrix WEqn
 (
@@ -5,6 +6,7 @@ fvScalarMatrix WEqn
   + fvm::div(phi, W)
   + fvm::div(phiW, W)
   - fvm::laplacian(turbulence->nuEff()/Sc,W)
+  + fvm::ddt(mW)
  ==
     fvOptions(W)
 );

@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 	
 	// --- passive scalar W
 	
-	#include "readTransportProperties.H"
+	//#include "readTransportProperties.H"
 	#include "allVariables.H"
 	#include "evaporation.H"
 	#include "settlingVelocity.H"
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 
 	// --- write parameters
 	//Uw=relt*grav;
-	dW.write();
+	//dW.write();
 	// ---
 
         runTime.write();

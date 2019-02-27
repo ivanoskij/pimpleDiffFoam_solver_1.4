@@ -1,10 +1,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Info<< "Computing Cw\n" << endl;
+volScalarField Reloc ("Reloc", ((max(mag(dummyV),mag(U)))*dW*rhoW/mu));		//local Reynolds number
+
 volScalarField Cw ("Cw", (24/Reloc+4*pow(Reloc,-0.333)));	//drag coefficient//[adim]
 
-Info<< "Comuting relaxation time\n" << endl;
 volScalarField relt ("relt",(Cw*rhoW*pow(dW,2)/(18*mu)));	//relaxation time//[s]
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
