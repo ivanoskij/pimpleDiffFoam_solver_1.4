@@ -27,7 +27,6 @@ volVectorField U
     mesh
 );
 
-//////////////////////////////////////////////////////////////////////////////////////
 
 Info<< "Reading field W\n" << endl;
 volScalarField W
@@ -47,20 +46,6 @@ volScalarField W
 #include "allVariables.H"
 #include "evaporation.H"
 
-Info<< "Reading sink term\n" << endl;
-volScalarField mW
-(
-    IOobject
-    (
-        "mW",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    //mesh,
-    rhoW*3.14159/6*pow(dW,3)
-);
 //////////////////////////////////////////////////////////////////////////////////////
 
 #include "createPhi.H"   
@@ -80,3 +65,5 @@ autoPtr<incompressible::turbulenceModel> turbulence
 );
 
 #include "createMRF.H"
+
+//////////////////////////////////////////////////////////////////////////////////////

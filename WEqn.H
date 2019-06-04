@@ -1,4 +1,15 @@
-//evaporation term
+volScalarField dW3	//temporary field 3
+(
+    IOobject
+    (
+        "dW3",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    pow(dW, 3)
+);
 
 fvScalarMatrix WEqn
 (
@@ -6,13 +17,17 @@ fvScalarMatrix WEqn
   + fvm::div(phi, W)
   + fvm::div(phiW, W)
   - fvm::laplacian(turbulence->nuEff()/Sc,W)
-  + fvm::ddt(mW)
- ==
+  ==
     fvOptions(W)
 );
 
 WEqn.relax();
+
 fvOptions.constrain(WEqn);
-WEqn.solve();
+
+solve(WEqn == W*pow(dW, -3)*fvm::ddt(dW3));
+
+fvOptions.correct(W);
+
 
 

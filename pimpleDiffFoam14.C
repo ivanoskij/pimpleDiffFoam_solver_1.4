@@ -94,6 +94,8 @@ int main(int argc, char *argv[])
 	// --- passive scalar W
 	
 	//#include "readTransportProperties.H"
+	//runTime.storeOldTime();
+
 	#include "allVariables.H"
 	#include "evaporation.H"
 	#include "settlingVelocity.H"

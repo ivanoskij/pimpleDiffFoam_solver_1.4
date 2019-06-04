@@ -1,7 +1,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-volScalarField Reloc ("Reloc", ((max(mag(dummyV),mag(U)))*dW*rhoW/mu));		//local Reynolds number
+volScalarField Reloc ("Reloc", ((max(mag(dummySmall1),mag(U)))*(dW+dummySmall2)*rhoW/mu));		//local Reynolds number
 
 volScalarField Cw ("Cw", (24/Reloc+4*pow(Reloc,-0.333)));	//drag coefficient//[adim]
 
@@ -9,7 +9,7 @@ volScalarField relt ("relt",(Cw*rhoW*pow(dW,2)/(18*mu)));	//relaxation time//[s]
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Info<< "\nReading gravitationalProperties" << endl;		
+Info<< "\n Reading gravitational properties" << endl;		
 IOdictionary gravitationalProperties				//gravity
 (
     IOobject
@@ -26,7 +26,6 @@ const dimensionedVector g(gravitationalProperties.lookup("g"));
 const dimensionedScalar magg = mag(g);
 const dimensionedVector gHat = g/magg;
 
-Info<< "Reading field grav\n" << endl;
 volVectorField grav
 (
     IOobject
@@ -51,7 +50,7 @@ volVectorField Uw						//settling velocity
         "Uw",
         runTime.timeName(),
         mesh,
-        IOobject::READ_IF_PRESENT,
+        IOobject::NO_READ,
         IOobject::AUTO_WRITE
     ),
     relt*grav
@@ -67,8 +66,8 @@ surfaceScalarField phiW						//settling velocity flux
         "phiW",
         runTime.timeName(),
         mesh,
-        IOobject::READ_IF_PRESENT,
-        IOobject::AUTO_WRITE
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
     ),
     fvc::flux(Uw)
 );
